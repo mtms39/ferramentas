@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]
+then
+	echo "MAC-VENDORS REQUISITION TOOL"
+	echo "For help: $0 -h/--help"
+	echo "USAGE: $0 <MAC>"
+	echo "Exemplo 1: $0 A4:7B:2C:E4:1F:28"
+	echo "Exemplo 2: $0 A4:7B:2C:E4:1F:28 04:D5:90:F7:22:51"
+	echo "WARNING!"
+	echo "This program make a request for N mac addresses given as input"
+	echo "Be aware that this script does a requisition to api.macvendors.com/ without an API key, therefore there is aplied a cooldown of 2 secods for each requisition"
+else
+for mac in $@:
+do
+	echo -e "Vendor for MAC $mac" 
+	curl api.macvendors.com/{$mac} -L;
+	echo -e "\n"
+	sleep 2
+done
+fi
